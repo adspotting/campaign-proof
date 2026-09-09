@@ -6,6 +6,8 @@ Campaign Proof is the evidence layer for B2B campaign reporting. It connects CRM
 
 - Public product site and “Campaign Proof vs. a generic AI prompt” positioning
 - Authenticated integration workspace
+- Google OAuth and email/password registration through Supabase Auth
+- Email confirmation, password recovery, persistent sessions, and sign-out
 - HubSpot OAuth connection and deal sync
 - Salesforce OAuth connection and opportunity/campaign sync
 - Campaign Proof REST API with hashed, revocable API keys
@@ -19,7 +21,9 @@ Campaign Proof is the evidence layer for B2B campaign reporting. It connects CRM
 
 Copy `.env.example` to a local environment file and populate it through your hosting provider. Never commit credentials.
 
-The application needs Supabase URL, publishable and secret keys; two random high-entropy secrets for OAuth state and token encryption; and OAuth app credentials from HubSpot and Salesforce.
+The browser needs `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. The server needs the matching Supabase URL and secret key, two random high-entropy secrets for OAuth state and token encryption, and OAuth app credentials from HubSpot and Salesforce.
+
+In Supabase Auth, enable email/password and Google. Add `https://campaignproof.app/auth/callback` and `https://www.campaignproof.app/auth/callback` to the redirect allowlist. Google’s OAuth client secret belongs in Supabase—not in this repository or the browser environment.
 
 ## Provider callback URLs
 

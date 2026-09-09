@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { chatGPTSignInPath, getChatGPTUser } from "../chatgpt-auth";
+import { getChatGPTUser } from "../chatgpt-auth";
 import IntegrationWorkspace from "./integration-workspace";
+import AccountControl from "./account-control";
 
 export const dynamic = "force-dynamic";
 
@@ -18,13 +18,7 @@ export default async function IntegrationsPage() {
           </Link>
           <div className="nav-links">
             <Link href="/developers">API docs</Link>
-            {user ? (
-              <span className="status-pill">Signed in</span>
-            ) : (
-              <a className="button button-small button-light" href={chatGPTSignInPath("/integrations")} target="_top">
-                Sign in <ArrowRight size={15} />
-              </a>
-            )}
+            <AccountControl platformSignedIn={Boolean(user)} />
           </div>
         </nav>
         <div className="section-shell workspace-intro">

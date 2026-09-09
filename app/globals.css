@@ -178,6 +178,26 @@ footer { background: #040d1a; color: #c7d0dc; padding: 38px 0; }
 .endpoint { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; border: 1px solid var(--line); background: white; padding: 14px 16px; font-family: var(--font-mono); font-size: 13px; }
 .method { background: var(--lime); color: var(--ink); padding: 5px 7px; font-weight: 900; }
 
+.auth-page { min-height: 100vh; background: var(--ink); color: white; padding-bottom: 80px; }
+.auth-card { width: min(520px, calc(100% - 32px)); margin: 70px auto 0; padding: 42px; background: white; color: var(--ink); border: 1px solid rgba(255,255,255,.18); box-shadow: 18px 18px 0 var(--lime); }
+.auth-card h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: .98; margin: 10px 0 16px; }
+.auth-card > p:not(.kicker) { color: var(--muted); }
+.google-button { width: 100%; min-height: 50px; margin-top: 26px; border: 1px solid #c8ced8; background: white; color: var(--ink); font-weight: 750; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; }
+.google-g { font-family: Arial, sans-serif; color: #4285f4; font-weight: 900; font-size: 18px; }
+.auth-divider { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px; margin: 22px 0; text-transform: uppercase; letter-spacing: .08em; }
+.auth-divider::before, .auth-divider::after { content: ""; height: 1px; background: #dce0e6; flex: 1; }
+.auth-form { display: grid; gap: 17px; }
+.auth-form label { display: grid; gap: 7px; font-size: 13px; font-weight: 800; }
+.auth-form input { min-height: 48px; border: 1px solid #b9c0cc; padding: 0 13px; color: var(--ink); background: white; font: inherit; }
+.auth-form input:focus { outline: 3px solid rgba(181,255,50,.55); border-color: var(--ink); }
+.auth-submit { width: 100%; justify-content: center; }
+.auth-links { margin-top: 20px; display: flex; justify-content: space-between; gap: 16px; }
+.auth-links button, .account-control button { border: 0; background: none; padding: 0; color: inherit; text-decoration: underline; cursor: pointer; font: inherit; font-size: 13px; }
+.auth-callback { text-align: center; display: grid; justify-items: center; gap: 12px; }
+.account-control { display: flex; align-items: center; gap: 12px; }
+.account-control button { color: white; }
+.auth-card .message { display: flex; align-items: center; gap: 8px; margin-bottom: 0; }
+
 @media (max-width: 820px) {
   .nav-links > a:not(.button) { display: none; }
   .hero { padding-top: 82px; }

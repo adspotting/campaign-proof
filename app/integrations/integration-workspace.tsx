@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { CheckCircle2, Database, KeyRound, Loader2, RefreshCw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabaseBrowser } from "@/lib/supabase-browser";
 
 type Provider = "hubspot" | "salesforce";
 
@@ -29,7 +30,9 @@ const providers: Array<{ id: Provider; name: string; initials: string; detail: s
   { id: "salesforce", name: "Salesforce", initials: "SF", detail: "Campaigns, members, opportunities, value, stage and close date" },
 ];
 
-export default function IntegrationWorkspace({ signedIn }: { signedIn: boolean }) {
+export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { signedIn: boolean }) {
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const signedIn = platformSignedIn || Boolean(accessToken);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [runs, setRuns] = useState<SyncRun[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
@@ -37,21 +40,35 @@ export default function IntegrationWorkspace({ signedIn }: { signedIn: boolean }
   const [error, setError] = useState<string | null>(null);
   const [newKey, setNewKey] = useState<string | null>(null);
 
+  useEffect(() => {
+    const client = supabaseBrowser();
+    if (!client) return;
+    void client.auth.getSession().then(({ data }) => setAccessToken(data.session?.access_token ?? null));
+    const { data } = client.auth.onAuthStateChange((_event, session) => setAccessToken(session?.access_token ?? null));
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  const authHeaders = useCallback((headers?: HeadersInit) => {
+    const result = new Headers(headers);
+    if (accessToken) result.set("authorization", `Bearer ${accessToken}`);
+    return result;
+  }, [accessToken]);
+
   const load = useCallback(async () => {
     if (!signedIn) return;
-    const response = await fetch("/api/integrations", { credentials: "same-origin" });
+    const response = await fetch("/api/integrations", { credentials: "same-origin", headers: authHeaders() });
     if (!response.ok) return;
     const data = await response.json() as { connections: Connection[]; runs: SyncRun[] };
     setConnections(data.connections ?? []);
     setRuns(data.runs ?? []);
-  }, [signedIn]);
+  }, [signedIn, authHeaders]);
 
   useEffect(() => { void load(); }, [load]);
 
   async function connect(provider: Provider) {
     setBusy(`connect-${provider}`);
     setError(null);
-    const response = await fetch(`/api/integrations/${provider}/connect`, { method: "POST" });
+    const response = await fetch(`/api/integrations/${provider}/connect`, { method: "POST", headers: authHeaders() });
     const data = await response.json() as { url?: string; error?: string };
     if (!response.ok || !data.url) {
       setError(data.error ?? `Could not start the ${provider} connection.`);
@@ -67,7 +84,7 @@ export default function IntegrationWorkspace({ signedIn }: { signedIn: boolean }
     setMessage(null);
     const response = await fetch(`/api/integrations/${connection.provider}/sync`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: authHeaders({ "content-type": "application/json" }),
       body: JSON.stringify({ connection_id: connection.id }),
     });
     const data = await response.json() as { imported?: number; seen?: number; error?: string };
@@ -82,7 +99,7 @@ export default function IntegrationWorkspace({ signedIn }: { signedIn: boolean }
     setError(null);
     const response = await fetch("/api/api-keys", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: authHeaders({ "content-type": "application/json" }),
       body: JSON.stringify({ name: "Primary integration" }),
     });
     const data = await response.json() as { key?: string; error?: string };
