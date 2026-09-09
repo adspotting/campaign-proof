@@ -13,5 +13,8 @@ declare namespace Cloudflare {
     SALESFORCE_CLIENT_ID?: string;
     SALESFORCE_CLIENT_SECRET?: string;
     SALESFORCE_LOGIN_URL?: string;
+    STRIPE_RESTRICTED_KEY?: string;
+    STRIPE_PRICE_ID?: string;
+    STRIPE_WEBHOOK_SECRET?: string;
   }
 }

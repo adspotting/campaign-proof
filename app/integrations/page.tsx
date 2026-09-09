@@ -13,7 +13,7 @@ export default async function IntegrationsPage() {
       <header className="workspace-header">
         <nav className="nav-shell" aria-label="Primary navigation">
           <Link className="brand" href="/">
-            <span className="brand-mark">CP</span>
+            <span className="brand-mark">CP<span className="mark-arrow">↗</span></span>
             <span>Campaign Proof</span>
           </Link>
           <div className="nav-links">

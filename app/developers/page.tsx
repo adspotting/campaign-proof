@@ -22,7 +22,7 @@ export default function DevelopersPage() {
   return (
     <main>
       <nav className="nav-shell" aria-label="Primary navigation">
-        <Link className="brand" href="/"><span className="brand-mark">CP</span><span>Campaign Proof</span></Link>
+        <Link className="brand" href="/"><span className="brand-mark">CP<span className="mark-arrow">↗</span></span><span>Campaign Proof</span></Link>
         <div className="nav-links"><Link href="/integrations">Integrations</Link><Link className="button button-small" href="/integrations">Get an API key</Link></div>
       </nav>
       <div className="section-shell docs-layout">

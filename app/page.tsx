@@ -4,10 +4,10 @@ import {
   Braces,
   Check,
   DatabaseZap,
-  PlugZap,
   RefreshCw,
   ShieldCheck,
 } from "lucide-react";
+import Calculator from "./calculator";
 
 const proofPoints = [
   "Deal-cycle-aware 90-day attribution",
@@ -42,31 +42,30 @@ export default function Home() {
     <main>
       <nav className="nav-shell" aria-label="Primary navigation">
         <Link className="brand" href="/">
-          <span className="brand-mark">CP</span>
+          <span className="brand-mark">CP<span className="mark-arrow">↗</span></span>
           <span>Campaign Proof</span>
         </Link>
         <div className="nav-links">
           <Link href="/integrations">Integrations</Link>
           <Link href="/developers">API</Link>
-          <Link className="button button-small" href="/integrations">
-            Open workspace <ArrowRight size={15} />
+          <Link className="button button-small" href="/toolkit">
+            Pro report builder <ArrowRight size={15} />
           </Link>
         </div>
       </nav>
 
       <section className="hero section-shell">
-        <div className="eyebrow"><span /> Evidence infrastructure for B2B marketing</div>
-        <h1>Connect the campaign data.<br />Defend the business impact.</h1>
+        <div className="eyebrow"><span /> Campaign measurement for B2B marketers</div>
+        <h1>Make every campaign<br />easier to defend.</h1>
         <p className="hero-copy">
-          Campaign Proof turns CRM and campaign records into a repeatable,
-          source-linked measurement model your clients and executives can audit.
+          Turn campaign metrics into a defensible business case—with deal-cycle-aware attribution, transparent assumptions, and a report your clients and executives can use.
         </p>
         <div className="hero-actions">
-          <Link className="button" href="/integrations">
-            Connect your CRM <PlugZap size={18} />
-          </Link>
-          <Link className="text-link" href="/developers">
-            View the API <ArrowRight size={16} />
+          <a className="button" href="#calculator">
+            Calculate campaign ROI <ArrowRight size={18} />
+          </a>
+          <Link className="text-link" href="/toolkit">
+            See the Pro report builder <ArrowRight size={16} />
           </Link>
         </div>
         <div className="proof-list" aria-label="Campaign Proof capabilities">
@@ -75,6 +74,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <Calculator />
 
       <section className="connection-band">
         <div className="section-shell">
@@ -150,9 +151,14 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="pricing-section section-shell" id="pricing">
+        <div className="section-heading split-heading"><div><p className="kicker">One plan, complete evidence</p><h2>Keep calculating free. Upgrade when the report matters.</h2></div><p>The calculator remains free. Pro adds the repeatable reporting workflow, private history, and optional CRM connections.</p></div>
+        <div className="pricing-card"><div><p className="connector-label">Campaign Proof Pro</p><h3>Report toolkit</h3><p className="price"><strong>$39</strong><span>/ month</span></p></div><ul><li><Check size={16}/> Vertical benchmarks and industry-specific scoring</li><li><Check size={16}/> Branded, editable multi-page PDF reports</li><li><Check size={16}/> Saved campaigns and comparison history</li><li><Check size={16}/> Full CVR methodology and source audit trail</li><li><Check size={16}/> Optional HubSpot, Salesforce, and API imports</li></ul><Link className="button" href="/account?return_to=/toolkit">Start with Pro <ArrowRight size={16}/></Link></div>
+      </section>
+
       <footer>
         <div className="section-shell footer-inner">
-          <Link className="brand" href="/"><span className="brand-mark footer-mark">CP</span><span>Campaign Proof</span></Link>
+          <Link className="brand" href="/"><span className="brand-mark footer-mark">CP<span className="mark-arrow">↗</span></span><span>Campaign Proof</span></Link>
           <p>Source-linked B2B campaign measurement.</p>
           <a href="mailto:support@campaignproof.app">support@campaignproof.app</a>
         </div>
