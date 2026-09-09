@@ -8,6 +8,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Calculator from "./calculator";
+import Brand from "@/components/brand";
 
 const proofPoints = [
   "Deal-cycle-aware 90-day attribution",
@@ -41,10 +42,7 @@ export default function Home() {
   return (
     <main>
       <nav className="nav-shell" aria-label="Primary navigation">
-        <Link className="brand" href="/">
-          <span className="brand-mark">CP<span className="mark-arrow">↗</span></span>
-          <span>Campaign Proof</span>
-        </Link>
+        <Brand />
         <div className="nav-links">
           <Link href="/integrations">Integrations</Link>
           <Link href="/developers">API</Link>
@@ -158,7 +156,7 @@ export default function Home() {
 
       <footer>
         <div className="section-shell footer-inner">
-          <Link className="brand" href="/"><span className="brand-mark footer-mark">CP<span className="mark-arrow">↗</span></span><span>Campaign Proof</span></Link>
+          <Brand inverse />
           <p>Source-linked B2B campaign measurement.</p>
           <a href="mailto:support@campaignproof.app">support@campaignproof.app</a>
         </div>

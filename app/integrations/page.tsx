@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getChatGPTUser } from "../chatgpt-auth";
 import IntegrationWorkspace from "./integration-workspace";
 import AccountControl from "./account-control";
+import Brand from "@/components/brand";
 
 export const dynamic = "force-dynamic";
 
@@ -12,10 +13,7 @@ export default async function IntegrationsPage() {
     <main className="workspace-page">
       <header className="workspace-header">
         <nav className="nav-shell" aria-label="Primary navigation">
-          <Link className="brand" href="/">
-            <span className="brand-mark">CP<span className="mark-arrow">↗</span></span>
-            <span>Campaign Proof</span>
-          </Link>
+          <Brand inverse />
           <div className="nav-links">
             <Link href="/developers">API docs</Link>
             <AccountControl platformSignedIn={Boolean(user)} />
