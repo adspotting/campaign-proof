@@ -1,0 +1,59 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Campaign Proof API",
+    "version": "1.0.0",
+    "description": "Import source-linked B2B campaign evidence and receive versioned attribution metrics."
+  },
+  "servers": [{ "url": "https://campaignproof.app" }],
+  "paths": {
+    "/api/v1/campaigns": {
+      "get": {
+        "summary": "List campaigns",
+        "security": [{ "bearerAuth": [] }],
+        "responses": { "200": { "description": "Campaign collection" } }
+      },
+      "post": {
+        "summary": "Create or update a campaign",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CampaignInput" } } }
+        },
+        "responses": {
+          "201": { "description": "Campaign created" },
+          "200": { "description": "Campaign updated" },
+          "400": { "description": "Invalid input" },
+          "401": { "description": "Invalid API key" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "Campaign Proof API key" } },
+    "schemas": {
+      "CampaignInput": {
+        "type": "object",
+        "required": ["source", "external_id", "name"],
+        "properties": {
+          "source": { "type": "string", "examples": ["hubspot"] },
+          "external_id": { "type": "string" },
+          "name": { "type": "string" },
+          "campaign_type": { "type": "string" },
+          "spend": { "type": "number", "minimum": 0 },
+          "impressions": { "type": "integer", "minimum": 0 },
+          "clicks": { "type": "integer", "minimum": 0 },
+          "registrations": { "type": "integer", "minimum": 0 },
+          "leads": { "type": "integer", "minimum": 0 },
+          "opportunities": { "type": "integer", "minimum": 0 },
+          "average_deal_value": { "type": "number", "minimum": 0 },
+          "entered_pipeline": { "type": "number", "minimum": 0 },
+          "sales_cycle_days": { "type": "integer", "minimum": 1, "default": 90 },
+          "attribution_window_days": { "type": "integer", "minimum": 1, "default": 90 },
+          "occurred_at": { "type": "string", "format": "date-time" },
+          "raw": { "type": "object", "additionalProperties": true }
+        }
+      }
+    }
+  }
+}
