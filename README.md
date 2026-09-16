@@ -23,14 +23,14 @@ Copy `.env.example` to a local environment file and populate it through your hos
 
 The browser needs `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. The server needs the matching Supabase URL and secret key, two random high-entropy secrets for OAuth state and token encryption, and OAuth app credentials from HubSpot and Salesforce.
 
-In Supabase Auth, enable email/password and Google. Add `https://campaignproof.app/auth/callback` and `https://www.campaignproof.app/auth/callback` to the redirect allowlist. Google’s OAuth client secret belongs in Supabase—not in this repository or the browser environment.
+In Supabase Auth, enable email/password and Google. Add `https://getcampaignproof.com/auth/callback` and `https://www.getcampaignproof.com/auth/callback` to the redirect allowlist. Google’s OAuth client secret belongs in Supabase—not in this repository or the browser environment.
 
 ## Provider callback URLs
 
 Register these exact production callbacks in each provider application:
 
-- `https://campaignproof.app/api/integrations/hubspot/callback`
-- `https://campaignproof.app/api/integrations/salesforce/callback`
+- `https://getcampaignproof.com/api/integrations/hubspot/callback`
+- `https://getcampaignproof.com/api/integrations/salesforce/callback`
 
 ## Data model
 
