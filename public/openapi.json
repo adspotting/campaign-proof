@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": "Import source-linked B2B campaign evidence and receive versioned attribution metrics."
   },
-  "servers": [{ "url": "https://campaignproof.app" }],
+  "servers": [{ "url": "https://getcampaignproof.com" }],
   "paths": {
     "/api/v1/campaigns": {
       "get": {
