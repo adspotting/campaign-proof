@@ -158,7 +158,7 @@ export default function Home() {
         <div className="section-shell footer-inner">
           <Brand inverse />
           <p>Source-linked B2B campaign measurement.</p>
-          <a href="mailto:support@campaignproof.app">support@campaignproof.app</a>
+          <a href="mailto:support@getcampaignproof.com">support@getcampaignproof.com</a>
         </div>
       </footer>
     </main>
