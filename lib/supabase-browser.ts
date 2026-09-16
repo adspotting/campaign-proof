@@ -23,8 +23,8 @@ export function supabaseBrowser(): SupabaseClient | null {
 export function safeReturnTo(value: string | null, fallback = "/integrations") {
   if (!value || !value.startsWith("/") || value.startsWith("//")) return fallback;
   try {
-    const url = new URL(value, "https://campaignproof.app");
-    if (url.origin !== "https://campaignproof.app") return fallback;
+    const url = new URL(value, "https://getcampaignproof.com");
+    if (url.origin !== "https://getcampaignproof.com") return fallback;
     return `${url.pathname}${url.search}${url.hash}`;
   } catch {
     return fallback;
