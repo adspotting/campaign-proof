@@ -168,7 +168,7 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
             </button>
           </div>
           {newKey && <div className="key-reveal"><strong>Copy this key now. It will not be shown again.</strong><code>{newKey}</code></div>}
-          <div className="code-panel" style={{ marginTop: 18 }}><pre><code>{`curl https://campaignproof.app/api/v1/campaigns \\
+          <div className="code-panel" style={{ marginTop: 18 }}><pre><code>{`curl https://getcampaignproof.com/api/v1/campaigns \\
   -H "Authorization: Bearer cp_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
