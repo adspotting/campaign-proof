@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { ArrowRight, Check, DatabaseZap, LockKeyhole } from "lucide-react";
 import { modelCampaign } from "@/lib/campaign-model";
 
@@ -34,7 +33,7 @@ export default function Calculator() {
           <label>Average deal/customer value ($)<input value={fields.averageDealValue} onChange={(e) => update("averageDealValue", e.target.value)} type="number" min="0" /></label>
           <label>Average deal cycle (days)<input value={fields.salesCycleDays} onChange={(e) => update("salesCycleDays", e.target.value)} type="number" min="1" /></label>
         </div>
-        <div className="data-choice"><DatabaseZap size={20} /><div><strong>Prefer not to enter this manually?</strong><p>Pro users can optionally import the same fields from HubSpot, Salesforce, or the Campaign Proof API.</p></div><Link href="/integrations">View connections <ArrowRight size={14} /></Link></div>
+        <div className="data-choice"><DatabaseZap size={20} /><div><strong>Prefer not to enter this manually?</strong><p>Pro users can optionally import the same fields from HubSpot, Salesforce, or the Campaign Proof API.</p></div><a href="/integrations">View connections <ArrowRight size={14} /></a></div>
       </form>
       <aside className="result-sheet">
         <div className="result-top"><p className="kicker">90-day view</p><span className="method-stamp">{result.methodology_version}</span></div>
@@ -43,7 +42,7 @@ export default function Calculator() {
         <div className="result-kpis"><div><span>Modeled ROI</span><strong>{result.modeled_roi?.toFixed(1) ?? "—"}×</strong></div><div><span>Full opportunity value</span><strong>{money.format(result.modeled_opportunity_value)}</strong></div></div>
         <div className="funnel-preview"><h3>Funnel efficiency</h3>{Object.entries(rates).map(([name, rate]) => <div className="rate-row" key={name}><span>{name === "ctr" ? "Click-through rate" : `${name[0].toUpperCase()}${name.slice(1)} CVR`}</span><strong>{(rate * 100).toFixed(1)}%</strong></div>)}</div>
         <div className="locked-report"><LockKeyhole size={20} /><div><strong>Turn this into a defensible report</strong><p>Add vertical benchmarks, editable narrative, branding, saved history, methodology details, and a true PDF.</p></div></div>
-        <Link className="button report-cta" href="/account?return_to=/toolkit">Build the Pro report <ArrowRight size={16} /></Link>
+        <a className="button report-cta" href="/account?return_to=/toolkit">Build the Pro report <ArrowRight size={16} /></a>
       </aside>
     </div>
     <div className="free-note"><Check size={16} /> Free results require no account. Your entries stay in this browser unless you choose to save them in Pro.</div>

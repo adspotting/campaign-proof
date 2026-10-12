@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getChatGPTUser } from "../chatgpt-auth";
 import IntegrationWorkspace from "./integration-workspace";
 import AccountControl from "./account-control";
@@ -15,7 +14,7 @@ export default async function IntegrationsPage() {
         <nav className="nav-shell" aria-label="Primary navigation">
           <Brand inverse />
           <div className="nav-links">
-            <Link href="/developers">API docs</Link>
+            <a href="/developers">API docs</a>
             <AccountControl platformSignedIn={Boolean(user)} />
           </div>
         </nav>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 
 export default function AccountControl({ platformSignedIn }: { platformSignedIn: boolean }) {
@@ -15,6 +14,6 @@ export default function AccountControl({ platformSignedIn }: { platformSignedIn:
   }, []);
 
   if (platformSignedIn) return <span className="status-pill">Signed in</span>;
-  if (!email) return <Link className="button button-small button-light" href="/account?return_to=/integrations">Sign in</Link>;
+  if (!email) return <a className="button button-small button-light" href="/account?return_to=/integrations">Sign in</a>;
   return <div className="account-control"><span className="status-pill">{email}</span><button onClick={async () => { await supabaseBrowser()?.auth.signOut(); window.location.replace("/"); }}>Sign out</button></div>;
 }

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight,
   Braces,
@@ -44,11 +43,11 @@ export default function Home() {
       <nav className="nav-shell" aria-label="Primary navigation">
         <Brand />
         <div className="nav-links">
-          <Link href="/integrations">Integrations</Link>
-          <Link href="/developers">API</Link>
-          <Link className="button button-small" href="/toolkit">
+          <a href="/integrations">Integrations</a>
+          <a href="/developers">API</a>
+          <a className="button button-small" href="/toolkit">
             Pro report builder <ArrowRight size={15} />
-          </Link>
+          </a>
         </div>
       </nav>
 
@@ -62,9 +61,9 @@ export default function Home() {
           <a className="button" href="#calculator">
             Calculate campaign ROI <ArrowRight size={18} />
           </a>
-          <Link className="text-link" href="/toolkit">
+          <a className="text-link" href="/toolkit">
             See the Pro report builder <ArrowRight size={16} />
-          </Link>
+          </a>
         </div>
         <div className="proof-list" aria-label="Campaign Proof capabilities">
           {proofPoints.map((point) => (
@@ -97,9 +96,9 @@ export default function Home() {
                 <h3>{connector.name}</h3>
                 <p className="connector-label">{connector.label}</p>
                 <p>{connector.copy}</p>
-                <Link href={connector.name === "Campaign Proof API" ? "/developers" : "/integrations"}>
+                <a href={connector.name === "Campaign Proof API" ? "/developers" : "/integrations"}>
                   {connector.name === "Campaign Proof API" ? "Read the API contract" : `Connect ${connector.name}`} <ArrowRight size={15} />
-                </Link>
+                </a>
               </article>
             ))}
           </div>
@@ -143,15 +142,15 @@ export default function Home() {
             <p className="kicker">Stop rebuilding the same report</p>
             <h2>Turn your CRM into a campaign evidence system.</h2>
           </div>
-          <Link className="button button-light" href="/integrations">
+          <a className="button button-light" href="/integrations">
             Open integrations <ArrowRight size={17} />
-          </Link>
+          </a>
         </div>
       </section>
 
       <section className="pricing-section section-shell" id="pricing">
         <div className="section-heading split-heading"><div><p className="kicker">One plan, complete evidence</p><h2>Keep calculating free. Upgrade when the report matters.</h2></div><p>The calculator remains free. Pro adds the repeatable reporting workflow, private history, and optional CRM connections.</p></div>
-        <div className="pricing-card"><div><p className="connector-label">Campaign Proof Pro</p><h3>Report toolkit</h3><p className="price"><strong>$39</strong><span>/ month</span></p></div><ul><li><Check size={16}/> Vertical benchmarks and industry-specific scoring</li><li><Check size={16}/> Branded, editable multi-page PDF reports</li><li><Check size={16}/> Saved campaigns and comparison history</li><li><Check size={16}/> Full CVR methodology and source audit trail</li><li><Check size={16}/> Optional HubSpot, Salesforce, and API imports</li></ul><Link className="button" href="/account?return_to=/toolkit">Start with Pro <ArrowRight size={16}/></Link></div>
+        <div className="pricing-card"><div><p className="connector-label">Campaign Proof Pro</p><h3>Report toolkit</h3><p className="price"><strong>$39</strong><span>/ month</span></p></div><ul><li><Check size={16}/> Vertical benchmarks and industry-specific scoring</li><li><Check size={16}/> Branded, editable multi-page PDF reports</li><li><Check size={16}/> Saved campaigns and comparison history</li><li><Check size={16}/> Full CVR methodology and source audit trail</li><li><Check size={16}/> Optional HubSpot, Salesforce, and API imports</li></ul><a className="button" href="/account?return_to=/toolkit">Start with Pro <ArrowRight size={16}/></a></div>
       </section>
 
       <footer>

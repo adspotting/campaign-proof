@@ -30,6 +30,13 @@ const providers: Array<{ id: Provider; name: string; initials: string; detail: s
   { id: "salesforce", name: "Salesforce", initials: "SF", detail: "Campaigns, members, opportunities, value, stage and close date" },
 ];
 
+const apiEcosystem = [
+  { category: "CRM & marketing", tools: ["Pipedrive", "Microsoft Dynamics 365", "Zoho CRM", "Marketo", "Pardot / Account Engagement"] },
+  { category: "Automation", tools: ["Zapier", "Make", "n8n", "Workato", "Tray.io"] },
+  { category: "Data & analytics", tools: ["Snowflake", "BigQuery", "Segment", "Mixpanel", "Amplitude"] },
+  { category: "Spreadsheets & databases", tools: ["Google Sheets", "Airtable", "Excel / Microsoft 365", "Postgres", "Any REST-capable database"] },
+];
+
 export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { signedIn: boolean }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const signedIn = platformSignedIn || Boolean(accessToken);
@@ -193,6 +200,26 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
           )}
         </TabsContent>
       </Tabs>
+      <section className="api-ecosystem" aria-labelledby="api-ecosystem-title">
+        <div className="workspace-toolbar ecosystem-heading">
+          <div>
+            <p className="kicker">Works with your stack</p>
+            <h2 id="api-ecosystem-title">Connect any tool that can send an API request.</h2>
+            <p>HubSpot and Salesforce use native OAuth. The tools below work through the Campaign Proof REST API, directly or through an automation platform.</p>
+          </div>
+          <a className="button button-small button-secondary" href="/developers">View API docs</a>
+        </div>
+        <div className="ecosystem-grid">
+          {apiEcosystem.map((group) => (
+            <article className="ecosystem-card" key={group.category}>
+              <span className="status-pill">Via API</span>
+              <h3>{group.category}</h3>
+              <ul>{group.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+        <p className="ecosystem-note"><strong>Not listed?</strong> If the system can make an authenticated REST request or trigger a webhook workflow, it can send campaign and deal data to Campaign Proof.</p>
+      </section>
     </div>
   );
 }

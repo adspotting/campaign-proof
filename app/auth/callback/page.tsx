@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { safeReturnTo, supabaseBrowser } from "@/lib/supabase-browser";
 
@@ -19,5 +18,5 @@ export default function AuthCallbackPage() {
     };
     void run();
   }, []);
-  return <main className="auth-page"><section className="auth-card auth-callback">{error ? <><h1>We couldn’t complete sign-in.</h1><p className="message message-error">{error}</p><Link className="button" href="/account">Return to sign in</Link></> : <><Loader2 className="animate-spin" size={28} /><h1>Securing your session…</h1><p>You’ll be redirected to your workspace.</p></>}</section></main>;
+  return <main className="auth-page"><section className="auth-card auth-callback">{error ? <><h1>We couldn’t complete sign-in.</h1><p className="message message-error">{error}</p><a className="button" href="/account">Return to sign in</a></> : <><Loader2 className="animate-spin" size={28} /><h1>Securing your session…</h1><p>You’ll be redirected to your workspace.</p></>}</section></main>;
 }

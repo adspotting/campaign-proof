@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Brand from "@/components/brand";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 
@@ -24,11 +23,11 @@ export default function DevelopersPage() {
     <main>
       <nav className="nav-shell" aria-label="Primary navigation">
         <Brand />
-        <div className="nav-links"><Link href="/integrations">Integrations</Link><Link className="button button-small" href="/integrations">Get an API key</Link></div>
+        <div className="nav-links"><a href="/integrations">Integrations</a><a className="button button-small" href="/integrations">Get an API key</a></div>
       </nav>
       <div className="section-shell docs-layout">
         <aside className="docs-nav">
-          <Link href="/"><ArrowLeft size={14} /> Product</Link>
+          <a href="/"><ArrowLeft size={14} /> Product</a>
           <a href="#authentication">Authentication</a>
           <a href="#campaigns">Campaigns</a>
           <a href="#idempotency">Idempotency</a>
