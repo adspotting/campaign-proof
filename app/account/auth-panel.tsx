@@ -16,8 +16,14 @@ export default function AuthPanel() {
   const client = supabaseBrowser();
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     void client?.auth.getSession().then(({ data }) => {
-      if (data.session) window.location.replace("/integrations");
+      if (data.session) window.location.replace(safeReturnTo(params.get("return_to")));
+      else {
+        if (params.get("mode") === "signup") setMode("signup");
+        const requestedEmail = params.get("email");
+        if (requestedEmail) setEmail(requestedEmail);
+      }
     });
   }, [client]);
 
@@ -43,10 +49,11 @@ export default function AuthPanel() {
       else setMessage("Check your email for a secure password-reset link.");
     } else if (mode === "signup") {
       const callback = new URL("/auth/callback", window.location.origin);
-      callback.searchParams.set("return_to", "/integrations");
+      const returnTo = safeReturnTo(new URLSearchParams(window.location.search).get("return_to"));
+      callback.searchParams.set("return_to", returnTo);
       const { data, error: authError } = await client.auth.signUp({ email, password, options: { emailRedirectTo: callback.toString() } });
       if (authError) setError(authError.message);
-      else if (data.session) window.location.replace("/integrations");
+      else if (data.session) window.location.replace(returnTo);
       else setMessage("Check your email to confirm your account, then return to sign in.");
     } else {
       const { error: authError } = await client.auth.signInWithPassword({ email, password });

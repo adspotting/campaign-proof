@@ -45,8 +45,8 @@ export default function Home() {
         <div className="nav-links">
           <a href="/integrations">Integrations</a>
           <a href="/developers">API</a>
-          <a className="button button-small" href="/toolkit">
-            Pro report builder <ArrowRight size={15} />
+          <a className="button button-small" href="#calculator">
+            Analyze free <ArrowRight size={15} />
           </a>
         </div>
       </nav>
@@ -59,10 +59,10 @@ export default function Home() {
         </p>
         <div className="hero-actions">
           <a className="button" href="#calculator">
-            Calculate campaign ROI <ArrowRight size={18} />
+            Analyze a campaign free <ArrowRight size={18} />
           </a>
-          <a className="text-link" href="/toolkit">
-            See the Pro report builder <ArrowRight size={16} />
+          <a className="text-link" href="#comparison">
+            See why the evidence matters <ArrowRight size={16} />
           </a>
         </div>
         <div className="proof-list" aria-label="Campaign Proof capabilities">
@@ -105,7 +105,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell evidence-section">
+      <section className="section-shell evidence-section" id="comparison">
         <div className="section-heading">
           <p className="kicker">AI can write a recap</p>
           <h2>Campaign Proof makes it defensible.</h2>
@@ -150,7 +150,7 @@ export default function Home() {
 
       <section className="pricing-section section-shell" id="pricing">
         <div className="section-heading split-heading"><div><p className="kicker">One plan, complete evidence</p><h2>Keep calculating free. Upgrade when the report matters.</h2></div><p>The calculator remains free. Pro adds the repeatable reporting workflow, private history, and optional CRM connections.</p></div>
-        <div className="pricing-card"><div><p className="connector-label">Campaign Proof Pro</p><h3>Report toolkit</h3><p className="price"><strong>$39</strong><span>/ month</span></p></div><ul><li><Check size={16}/> Vertical benchmarks and industry-specific scoring</li><li><Check size={16}/> Branded, editable multi-page PDF reports</li><li><Check size={16}/> Saved campaigns and comparison history</li><li><Check size={16}/> Full CVR methodology and source audit trail</li><li><Check size={16}/> Optional HubSpot, Salesforce, and API imports</li></ul><a className="button" href="/account?return_to=/toolkit">Start with Pro <ArrowRight size={16}/></a></div>
+        <div className="pricing-card"><div><p className="connector-label">Campaign Proof Pro</p><h3>Report toolkit</h3><p className="price"><strong>$39</strong><span>/ month</span></p></div><ul><li><Check size={16}/> Vertical benchmarks and industry-specific scoring</li><li><Check size={16}/> Branded, editable multi-page PDF reports</li><li><Check size={16}/> Saved campaigns and comparison history</li><li><Check size={16}/> Full CVR methodology and source audit trail</li><li><Check size={16}/> Optional HubSpot, Salesforce, and API imports</li></ul><a className="button" href="#calculator">Analyze a campaign free <ArrowRight size={16}/></a></div>
       </section>
 
       <footer>

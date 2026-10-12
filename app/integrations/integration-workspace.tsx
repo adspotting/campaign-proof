@@ -42,6 +42,7 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
   const signedIn = platformSignedIn || Boolean(accessToken);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [runs, setRuns] = useState<SyncRun[]>([]);
+  const [pro, setPro] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -63,11 +64,16 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
 
   const load = useCallback(async () => {
     if (!signedIn) return;
-    const response = await fetch("/api/integrations", { credentials: "same-origin", headers: authHeaders() });
+    const [response, entitlementResponse] = await Promise.all([
+      fetch("/api/integrations", { credentials: "same-origin", headers: authHeaders() }),
+      fetch("/api/entitlement", { credentials: "same-origin", headers: authHeaders() }),
+    ]);
     if (!response.ok) return;
     const data = await response.json() as { connections: Connection[]; runs: SyncRun[] };
+    const entitlement = entitlementResponse.ok ? await entitlementResponse.json() as { pro?: boolean } : {};
     setConnections(data.connections ?? []);
     setRuns(data.runs ?? []);
+    setPro(Boolean(entitlement.pro));
   }, [signedIn, authHeaders]);
 
   useEffect(() => { void load(); }, [load]);
@@ -131,6 +137,7 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
             <div><h2>Connected systems</h2><p>OAuth tokens are encrypted before storage. A sync never overwrites the original CRM record.</p></div>
           </div>
           {!signedIn && <p className="message">Sign in to connect a CRM, create API keys, and see your private sync history.</p>}
+          {signedIn && !pro && <p className="message">CRM and API connections are included with Pro. <a href="/#calculator">Analyze a campaign and preview your report first.</a></p>}
           {message && <p className="message">{message}</p>}
           {error && <p className="message message-error">{error}</p>}
           <div className="connection-list">
@@ -147,12 +154,12 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
                     {connection ? (
                       <>
                         <span className="connection-state"><CheckCircle2 size={14} /> Connected</span>
-                        <button className="button button-small button-secondary" disabled={busy !== null} onClick={() => void sync(connection)}>
+                        <button className="button button-small button-secondary" disabled={!pro || busy !== null} onClick={() => void sync(connection)}>
                           {busy === `sync-${connection.id}` ? <Loader2 className="animate-spin" size={15} /> : <RefreshCw size={15} />} Refresh
                         </button>
                       </>
                     ) : (
-                      <button className="button button-small" disabled={!signedIn || busy !== null} onClick={() => void connect(provider.id)}>
+                      <button className="button button-small" disabled={!signedIn || !pro || busy !== null} onClick={() => void connect(provider.id)}>
                         {busy === `connect-${provider.id}` ? <Loader2 className="animate-spin" size={15} /> : null} Connect {provider.name}
                       </button>
                     )}
@@ -170,7 +177,7 @@ export default function IntegrationWorkspace({ signedIn: platformSignedIn }: { s
           {error && <p className="message message-error">{error}</p>}
           <div className="api-key-box">
             <div><KeyRound size={20} /><p>Keys are hashed at rest and shown only once.</p></div>
-            <button className="button button-small" disabled={!signedIn || busy !== null} onClick={() => void createApiKey()}>
+            <button className="button button-small" disabled={!signedIn || !pro || busy !== null} onClick={() => void createApiKey()}>
               {busy === "key" ? <Loader2 className="animate-spin" size={15} /> : null} Create API key
             </button>
           </div>

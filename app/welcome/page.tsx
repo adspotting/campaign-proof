@@ -1,0 +1,6 @@
+import { ArrowRight, DatabaseZap, FileText, ShieldCheck } from "lucide-react";
+import Brand from "@/components/brand";
+
+export default function WelcomePage() {
+  return <main className="onboarding-page"><nav className="nav-shell"><Brand inverse /><a href="/">Calculator</a></nav><section className="section-shell onboarding-card"><span className="onboarding-check"><ShieldCheck size={28}/></span><p className="kicker">Welcome to Campaign Proof Pro</p><h1>Choose your first move.</h1><p>Your subscription is activating. Start with the path that gets you to a defensible report fastest.</p><div className="onboarding-choices"><a href="/integrations"><DatabaseZap size={24}/><span><strong>Connect your CRM</strong><small>Bring in campaign and opportunity data from HubSpot, Salesforce, or the API.</small></span><ArrowRight size={18}/></a><a href="/toolkit"><FileText size={24}/><span><strong>Build your first report</strong><small>Start manually with branding, vertical benchmarks, history, and PDF export.</small></span><ArrowRight size={18}/></a></div><p className="onboarding-note">If access takes a few seconds to appear, refresh the destination once while Stripe confirms the subscription.</p></section></main>;
+}

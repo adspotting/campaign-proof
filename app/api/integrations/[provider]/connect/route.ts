@@ -1,4 +1,5 @@
 import { requireViewer } from "@/lib/auth";
+import { hasProAccess } from "@/lib/entitlements";
 import { authorizationUrl } from "@/lib/crm";
 import { providerConfigured, type CrmProvider } from "@/lib/runtime";
 
@@ -9,6 +10,7 @@ function providerFrom(value: string): CrmProvider | null {
 export async function POST(request: Request, context: { params: Promise<{ provider: string }> }) {
   try {
     const viewer = await requireViewer(request);
+    if (!await hasProAccess(viewer.userId)) return Response.json({ error: "Campaign Proof Pro is required to connect a CRM." }, { status: 403 });
     const provider = providerFrom((await context.params).provider);
     if (!provider) return Response.json({ error: "Unknown CRM provider." }, { status: 404 });
     if (!providerConfigured(provider)) return Response.json({ error: `${provider === "hubspot" ? "HubSpot" : "Salesforce"} OAuth credentials are not configured yet.` }, { status: 503 });

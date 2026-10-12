@@ -1,4 +1,5 @@
 import { requireViewer } from "@/lib/auth";
+import { hasProAccess } from "@/lib/entitlements";
 import { syncConnection } from "@/lib/crm";
 import type { CrmProvider } from "@/lib/runtime";
 
@@ -9,6 +10,7 @@ function providerFrom(value: string): CrmProvider | null {
 export async function POST(request: Request, context: { params: Promise<{ provider: string }> }) {
   try {
     const viewer = await requireViewer(request);
+    if (!await hasProAccess(viewer.userId)) return Response.json({ error: "Campaign Proof Pro is required to sync CRM data." }, { status: 403 });
     const provider = providerFrom((await context.params).provider);
     if (!provider) return Response.json({ error: "Unknown CRM provider." }, { status: 404 });
     const body = await request.json() as { connection_id?: number };

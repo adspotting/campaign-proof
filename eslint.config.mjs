@@ -23,6 +23,21 @@ const eslintConfig = defineConfig([
       "react-hooks/set-state-in-effect": "off",
     },
   },
+  {
+    files: ["app/**/*.{ts,tsx}", "components/brand.tsx"],
+    rules: {
+      // Vinext's current client router throws during Link navigation in this
+      // deployment target. Native anchors preserve accessible navigation.
+      "@next/next/no-html-link-for-pages": "off",
+    },
+  },
+  {
+    files: ["app/integrations/integration-workspace.tsx", "app/toolkit/report-builder.tsx"],
+    rules: {
+      // These effects load external auth/entitlement state after hydration.
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
