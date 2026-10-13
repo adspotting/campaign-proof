@@ -27,16 +27,9 @@ jobs:
       - name: Install HubSpot CLI
         run: npm install --global @hubspot/cli@8.15.0
 
-      - name: Authenticate HubSpot CLI
-        env:
-          HUBSPOT_PERSONAL_ACCESS_KEY: ${{ secrets.HUBSPOT_PERSONAL_ACCESS_KEY }}
-        run: >-
-          hs account auth
-          --account 247681548
-          --name campaign-proof
-          --personal-access-key "$HUBSPOT_PERSONAL_ACCESS_KEY"
-          --default
-
       - name: Upload and deploy HubSpot app
         working-directory: hubspot
-        run: hs project upload --account campaign-proof
+        env:
+          HUBSPOT_ACCOUNT_ID: "247681548"
+          HUBSPOT_PERSONAL_ACCESS_KEY: ${{ secrets.HUBSPOT_PERSONAL_ACCESS_KEY }}
+        run: hs project upload --account 247681548
