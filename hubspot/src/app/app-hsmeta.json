@@ -1,0 +1,30 @@
+{
+  "uid": "campaign_proof_hubspot",
+  "type": "app",
+  "config": {
+    "name": "Campaign Proof",
+    "description": "Import HubSpot deal data into Campaign Proof to calculate attributable value and build evidence-backed campaign reports.",
+    "distribution": "marketplace",
+    "auth": {
+      "type": "oauth",
+      "redirectUrls": [
+        "https://getcampaignproof.com/api/integrations/hubspot/callback"
+      ],
+      "requiredScopes": [
+        "crm.objects.deals.read"
+      ],
+      "optionalScopes": [],
+      "conditionallyRequiredScopes": []
+    },
+    "permittedUrls": {
+      "fetch": [],
+      "iframe": [],
+      "img": []
+    },
+    "support": {
+      "supportEmail": "support@getcampaignproof.com",
+      "documentationUrl": "https://getcampaignproof.com/integrations",
+      "supportUrl": "https://getcampaignproof.com/account"
+    }
+  }
+}
