@@ -42,7 +42,7 @@ export async function authorizationUrl(provider: CrmProvider, userId: string, re
     const url = new URL("https://app.hubspot.com/oauth/authorize");
     url.searchParams.set("client_id", requireRuntimeValue("HUBSPOT_CLIENT_ID"));
     url.searchParams.set("redirect_uri", redirectUri);
-    url.searchParams.set("scope", "oauth crm.objects.deals.read crm.objects.contacts.read crm.objects.companies.read");
+    url.searchParams.set("scope", "crm.objects.deals.read");
     url.searchParams.set("state", state);
     return url.toString();
   }
@@ -92,7 +92,7 @@ async function exchangeHubSpot(code: string, redirectUri: string): Promise<Token
     redirect_uri: redirectUri,
     code,
   });
-  const response = await fetch("https://api.hubapi.com/oauth/v1/token", { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form });
+  const response = await fetch("https://api.hubapi.com/oauth/v3/token", { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form });
   if (!response.ok) throw new Error(`HubSpot token exchange returned ${response.status}.`);
   const data = await response.json() as { access_token: string; refresh_token?: string; expires_in?: number; hub_id?: number; scopes?: string[] };
   const detailsResponse = await fetch("https://api.hubapi.com/account-info/v3/details", { headers: { authorization: `Bearer ${data.access_token}` } });
@@ -140,7 +140,7 @@ async function refreshAccess(connection: ConnectionRow): Promise<{ accessToken: 
   const form = new URLSearchParams({ grant_type: "refresh_token", refresh_token: refreshToken });
   let endpoint: string;
   if (connection.provider === "hubspot") {
-    endpoint = "https://api.hubapi.com/oauth/v1/token";
+    endpoint = "https://api.hubapi.com/oauth/v3/token";
     form.set("client_id", requireRuntimeValue("HUBSPOT_CLIENT_ID"));
     form.set("client_secret", requireRuntimeValue("HUBSPOT_CLIENT_SECRET"));
   } else {
