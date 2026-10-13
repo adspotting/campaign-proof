@@ -33,4 +33,4 @@ jobs:
           HUBSPOT_ACCOUNT_ID: "247681548"
           HUBSPOT_PERSONAL_ACCESS_KEY: ${{ secrets.HUBSPOT_PERSONAL_ACCESS_KEY }}
           USE_ENVIRONMENT_HUBSPOT_CONFIG: "true"
-        run: hs project upload --account 247681548
+        run: hs project upload
