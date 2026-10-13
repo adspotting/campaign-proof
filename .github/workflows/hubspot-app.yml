@@ -15,25 +15,15 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_ACCOUNT_ID: "247681548"
+      DEFAULT_PERSONAL_ACCESS_KEY: ${{ secrets.HUBSPOT_PERSONAL_ACCESS_KEY }}
+      DEFAULT_CLI_VERSION: "8.15.0"
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
-      - name: Install HubSpot CLI
-        run: npm install --global @hubspot/cli@8.15.0
-
-      - name: Configure HubSpot CLI
-        env:
-          HUBSPOT_PERSONAL_ACCESS_KEY: ${{ secrets.HUBSPOT_PERSONAL_ACCESS_KEY }}
-        run: |
-          printf 'defaultPortal: 247681548\nportals:\n  - name: campaign-proof\n    portalId: 247681548\n    authType: personalaccesskey\n    personalAccessKey: "%s"\n' "$HUBSPOT_PERSONAL_ACCESS_KEY" > "$RUNNER_TEMP/hubspot.config.yml"
-          chmod 600 "$RUNNER_TEMP/hubspot.config.yml"
-
       - name: Upload and deploy HubSpot app
-        working-directory: hubspot
-        run: hs project upload --config "$RUNNER_TEMP/hubspot.config.yml" --account campaign-proof
+        uses: HubSpot/hubspot-project-actions@v1.1.0
+        with:
+          project_dir: "./hubspot"
